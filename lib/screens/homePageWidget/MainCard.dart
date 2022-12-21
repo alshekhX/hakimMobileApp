@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../consts/HakimColors.dart';
@@ -35,7 +36,7 @@ class HakimMainCard extends StatelessWidget {
         ],
       ),
       decoration: BoxDecoration(
-          color: Color(0xffF8FFFF),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(17),
           border: Border.all(color: HakimColors.hakimPrimaryColor)),
     );

@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hakim/consts/HakimColors.dart';
 import 'package:hakim/screens/CategoryScreen.dart';
+import 'package:hakim/screens/HospitalsScreen.dart';
 import 'package:hakim/tools/mainClipper.dart';
 import 'package:sizer/sizer.dart';
 
@@ -102,9 +103,18 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
                 child: Row(
                   children: [
-                    HakimMainCard(
-                      title: 'المستشفيات',
-                      icon: Icons.local_hospital_outlined,
+                    InkWell(
+                       onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Hospitals()));
+                      },
+
+                      child: HakimMainCard(
+                        title: 'المستشفيات',
+                        icon: Icons.local_hospital_outlined,
+                      ),
                     ),
                     SizedBox(
                       width: 3.w,

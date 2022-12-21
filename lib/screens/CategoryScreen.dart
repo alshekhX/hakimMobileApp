@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hakim/consts/HakimColors.dart';
 import 'package:hakim/customeIcons.dart/icons.dart';
+import 'package:hakim/screens/DoctorScreen.dart';
 import 'package:sizer/sizer.dart';
 
 class CatergoryScreen extends StatefulWidget {
@@ -35,7 +36,20 @@ class _CatergoryScreenState extends State<CatergoryScreen> {
         SizedBox(
           height: 10.sp,
         ),
-        CategoryListTile(title: 'الباطنية',icon: MyFlutterApp.stomach_care_1607886,),
+        InkWell(
+          child: CategoryListTile(title: 'الباطنية',icon: MyFlutterApp.stomach_care_1607886,
+          
+          
+          
+          
+          ),
+          onTap: (() {
+             Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Doctors()));
+            
+          }),),
                 CategoryListTile(title: 'العظام',icon: MyFlutterApp.haircare_1607909,)
 ,        CategoryListTile(title: 'أذن وأنف وحنجرة',icon: MyFlutterApp.cardiogram_1607908,)
 ,        CategoryListTile(title: 'الجهاز التنفسي',icon: MyFlutterApp.respiratory_care_1607889,)

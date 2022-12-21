@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
         
         
         theme: ThemeData(
+          
           // This is the theme of your application.
           //
           // Try running your application with "flutter run". You'll see the
@@ -36,8 +37,9 @@ class MyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          primaryColor: Colors.white,
-          backgroundColor: Colors.white,
+          primaryColor: Color(0xffFCFCFC),
+          backgroundColor:Color(0xffFCFCFC),
+          
           textTheme: GoogleFonts.tajawalTextTheme(),
          
           canvasColor: Colors.white,scaffoldBackgroundColor: Colors.white
@@ -74,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return const Scaffold(
-      backgroundColor:  Colors.white,
+      
         body: HomePage());
   }
 }
