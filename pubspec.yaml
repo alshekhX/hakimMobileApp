@@ -42,7 +42,11 @@ dependencies:
   google_fonts: ^3.0.1
   easy_search_bar: ^2.4.2
   intl: any
+  dependencies:
+  dio: ^4.0.6
   ionicons: ^0.2.1
+  provider: ^6.0.5
+  
 
 
 dev_dependencies:

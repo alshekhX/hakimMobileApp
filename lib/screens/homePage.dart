@@ -4,7 +4,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hakim/consts/HakimColors.dart';
+import 'package:hakim/models/HomeCare.dart';
 import 'package:hakim/screens/CategoryScreen.dart';
+import 'package:hakim/screens/HomeCareScreen.dart';
 import 'package:hakim/screens/HospitalsScreen.dart';
 import 'package:hakim/tools/mainClipper.dart';
 import 'package:sizer/sizer.dart';
@@ -134,9 +136,17 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       width: 3.w,
                     ),
-                    HakimMainCard(
-                      title: 'العلاج المنزلي',
-                      icon: Icons.local_hospital_outlined,
+                    InkWell(
+                      onTap: (){
+                         Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeCares()));
+                      },
+                      child: HakimMainCard(
+                        title: 'العلاج المنزلي',
+                        icon: Icons.local_hospital_outlined,
+                      ),
                     )
                   ],
                 ),

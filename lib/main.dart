@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hakim/screens/CategoryScreen.dart';
 import 'package:hakim/screens/homePage.dart';
+import 'package:hakim/screens/providers/HomeCareProvider.dart';
+import 'package:hakim/screens/providers/doctorsProvider.dart';
+import 'package:hakim/screens/providers/hospitalProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,7 +14,24 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers:  [
+    ChangeNotifierProvider(create: (context) => DoctorsProvider()),
+    ChangeNotifierProvider(create: (context) => HomeCareProvider()),
+    ChangeNotifierProvider(create: (context) => HospitalProvider()),
+    // ChangeNotifierProvider(
+    //   create: (context) => AuthProvider(),
+    // ),
+  ],
+  child:const MyApp(),)
+    
+    
+    
+    
+    
+    
+    
+    
+     );
 }
 
 class MyApp extends StatelessWidget {

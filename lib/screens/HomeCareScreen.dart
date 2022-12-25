@@ -1,94 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:hakim/screens/providers/hospitalProvider.dart';
+import 'package:hakim/models/HomeCare.dart';
+import 'package:hakim/screens/providers/HomeCareProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../consts/HakimColors.dart';
-import '../models/Hospital.dart';
-
-class Hospitals extends StatefulWidget {
-  const Hospitals({super.key});
+class HomeCares extends StatefulWidget {
+  const HomeCares({super.key});
 
   @override
-  State<Hospitals> createState() => _HospitalsState();
+  State<HomeCares> createState() => _HomeCaresState();
 }
 
-class _HospitalsState extends State<Hospitals> {
+class _HomeCaresState extends State<HomeCares> {
+
+
   @override
   void initState() {
-    getHospitals();
+    getHomeCares();
     // TODO: implement initState
     super.initState();
   }
 
-  List<Hospital>? hospitals;
+  List<HomeCare>? homeCares;
 
-  getHospitals() async {
+  getHomeCares() async {
     // String cate = Provider.of<ArticlePrvider>(context, listen: false).category;
 
-    String res = await Provider.of<HospitalProvider>(context, listen: false)
-        .getHospitals(1);
-    print(res);
+    String res =
+        await Provider.of<HomeCareProvider>(context, listen: false).getHomeCare(1);
+              print(res);
 
     if (res == 'success') {
-      // ignore: use_build_context_synchronously
-      hospitals =
-          Provider.of<HospitalProvider>(context, listen: false).hospitals;
+      homeCares = Provider.of<HomeCareProvider>(context, listen: false).homeCares;
       setState(() {});
     } else {
       print(res);
     }
   }
-
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
       appBar: AppBar(
           toolbarHeight: 50.sp,
           backgroundColor: HakimColors.hakimPrimaryColor,
-          title: const Text('المستشفيات')),
-      body: hospitals != null
-          ? SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: 15.sp),
-                  Consumer<HospitalProvider>(
-                      builder: (context, hospitalProv, _) {
-                    List<Widget> hospitalWidgets = [];
+          title: const Text('العلاج المنزلي')),
+      body: homeCares!=null? SingleChildScrollView(
+        child: Column(
+          children: [SizedBox(height: 15.sp),       Consumer(   builder: (context, homeCareProv, _) {
+                    List<Widget> homeCareWidgets = [];
 
-                    for (int i = 0; i < hospitals!.length; i++) {
-                      hospitalWidgets.add(HospitalCard(
-                          name: hospitals![i].name!,
-                          image: 'http://192.168.43.250:9000/uploads/photos/'+hospitals![i].assets![0],
-                          location: hospitals![i].location!,
-                          description: hospitals![i].description!));
+                    for (int i = 0; i < homeCares!.length; i++) {
+                      homeCareWidgets.add(HomeCareCard(
+                          name: homeCares![i].name!,
+                          image: 'http://192.168.43.250:9000/uploads/photos/'+homeCares![i].assets![0],
+                          location: homeCares![i].location!,
+                          description: homeCares![i].description!));
                     }
 
                     return Column(
-                      children: hospitalWidgets,
+                      children: homeCareWidgets,
                     );
-                  })
-                ],
-              ),
-            )
-          : Center(
-              child: CircularProgressIndicator(),
-            ),
+                  })],
+        ),
+      ):Center(child: CircularProgressIndicator(),),
     );
   }
 }
 
-class HospitalCard extends StatelessWidget {
+class HomeCareCard extends StatelessWidget {
   final String name;
   final String image;
   final String location;
   final String description;
-  const HospitalCard({
-    Key? key,
-    required this.name,
-    required this.image,
-    required this.location,
-    required this.description,
+  const HomeCareCard({
+    Key? key, required this.name, required this.image, required this.location, required this.description,
   }) : super(key: key);
 
   @override
@@ -117,10 +104,11 @@ class HospitalCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                                                height: 5.h,
-
+                        height: 5.h,
+                        
                         child: Text(
-                          name,
+                         name,
+                         overflow: TextOverflow.visible,
                           style: TextStyle(
                               fontSize: 14.sp,
                               color: Color(0xff707070),
@@ -130,11 +118,10 @@ class HospitalCard extends StatelessWidget {
                       SizedBox(
                         height: 10.sp,
                       ),
-                      Container(height: 10.h,
-                        child: Text(
-                          
-                          description,
-                          overflow: TextOverflow.fade,
+                      Container(
+                        height: 8.h,
+                        child: Text(description,
+                        overflow: TextOverflow.fade,
                           style: TextStyle(
                               fontSize: 10.sp, color: Color(0xff8E8B8B)),
                         ),
@@ -143,19 +130,16 @@ class HospitalCard extends StatelessWidget {
                       Row(
                         children: [
                           Align(
-                              alignment: Alignment.topCenter,
-                              child: Icon(
-                                Icons.pin_drop,
-                                size: 15.sp,
-                                color: HakimColors.hakimPrimaryColor,
-                              )),
+                            
+                            alignment: Alignment.topCenter,
+                            child: Icon(Icons.pin_drop,size: 15.sp,color: HakimColors.hakimPrimaryColor,)),
                           SizedBox(
                             width: 5.sp,
                           ),
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: Text(
-                              location,
+                             location,
                               style: TextStyle(
                                   fontSize: 12.sp, color: Color(0xff8E8B8B)),
                             ),
@@ -177,12 +161,9 @@ class HospitalCard extends StatelessWidget {
                   width: 50.w,
                   child: ElevatedButton(
                     onPressed: () {},
-                    child: Text(
-                      "تواصل",
-                      style: TextStyle(fontSize: 11.sp),
-                    ),
+                    child: Text("تواصل",style: TextStyle(fontSize: 11.sp),),
                     style: ElevatedButton.styleFrom(
-                        elevation: 0,
+                      elevation: 0,
                         backgroundColor: HakimColors.doctorButton,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
