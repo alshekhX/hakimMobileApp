@@ -19,12 +19,15 @@ class Doctor {
         this.description,
         this.photo,
         this.mainHospital,
+        this.rank,
         this.createdAt,
         this.v,
         this.doctorId,
     });
 
-    List<dynamic>? category;
+    String? category;
+        String? rank;
+
     String? id;
     String? username;
     String ?email;
@@ -39,7 +42,9 @@ class Doctor {
     String ?doctorId;
 
     factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
-        category: json["category"] == null ? null : List<dynamic>.from(json["category"].map((x) => x)),
+        category: json["category"] == null ?null:json["category"],
+                rank: json["rank"] == null ?null:json["rank"],
+
         id: json["_id"] == null ? null : json["_id"],
         username: json["username"] == null ? null : json["username"],
         email: json["email"] == null ? null : json["email"],

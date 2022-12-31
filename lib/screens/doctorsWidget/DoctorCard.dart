@@ -39,7 +39,7 @@ class DoctorCard extends StatelessWidget {
                         width: 20.w,
                         child: CircleAvatar(
                           backgroundImage: NetworkImage(
-                             image),
+                             'http://192.168.43.250:9000/uploads/photos/'+image),
                         ),
                       ),
                     ),

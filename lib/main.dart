@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hakim/screens/CategoryScreen.dart';
+import 'package:hakim/screens/HospitalDesScreen.dart';
 import 'package:hakim/screens/homePage.dart';
 import 'package:hakim/screens/providers/HomeCareProvider.dart';
 import 'package:hakim/screens/providers/doctorsProvider.dart';
@@ -98,6 +99,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return const Scaffold(
       
-        body: HomePage());
+        body: HospitalDes());
   }
 }
