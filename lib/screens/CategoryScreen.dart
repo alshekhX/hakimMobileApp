@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hakim/consts/HakimColors.dart';
 import 'package:hakim/customeIcons.dart/icons.dart';
 import 'package:hakim/screens/DoctorScreen.dart';
+import 'package:hakim/screens/selectionClass/DocCategoryClass.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class CatergoryScreen extends StatefulWidget {
@@ -15,47 +17,40 @@ class CatergoryScreen extends StatefulWidget {
 }
 
 class _CatergoryScreenState extends State<CatergoryScreen> {
+  List<Widget>? category;
   @override
   Widget build(BuildContext context) {
+    category = DocCategory.carEngineList
+        .map(
+          (e) => InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Doctors()));
+              },
+              child: CategoryListTile(title: e.category, icon: e.categoryIcon)),
+        )
+        .toList();
+    
+
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        toolbarHeight: 50.sp,
-        backgroundColor: HakimColors.hakimPrimaryColor,
-        title:Image.asset('assets/appBar.png')
-        
-        //  Text(
-        //   'الحكيم',
-        //   style: GoogleFonts.tajawal(
-        //       fontSize: 32.sp,
-        //       color: Colors.white,
-        //       fontWeight: FontWeight.bold),
-        // ),
-      ),
-      body: Column(children: [
-        SizedBox(
-          height: 10.sp,
-        ),
-        InkWell(
-          child: CategoryListTile(title: 'الباطنية',icon: MyFlutterApp.stomach_care_1607886,
-          
-          
-          
-          
-          ),
-          onTap: (() {
-             Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Doctors()));
-            
-          }),),
-                CategoryListTile(title: 'العظام',icon: MyFlutterApp.haircare_1607909,)
-,        CategoryListTile(title: 'أذن وأنف وحنجرة',icon: MyFlutterApp.cardiogram_1607908,)
-,        CategoryListTile(title: 'الجهاز التنفسي',icon: MyFlutterApp.respiratory_care_1607889,)
-,        CategoryListTile(title: 'الباطنية',icon: Icons.stadium_outlined,)
+          centerTitle: true,
+          toolbarHeight: 50.sp,
+          backgroundColor: HakimColors.hakimPrimaryColor,
+          title: Image.asset('assets/appBar.png')
 
-      ]),
+          //  Text(
+          //   'الحكيم',
+          //   style: GoogleFonts.tajawal(
+          //       fontSize: 32.sp,
+          //       color: Colors.white,
+          //       fontWeight: FontWeight.bold),
+          // ),
+          ),
+      body: SingleChildScrollView(child: Padding(
+        padding:  EdgeInsets.only(top: 10.sp),
+        child: Column(children: category!),
+      )),
     );
   }
 }
@@ -65,13 +60,15 @@ class CategoryListTile extends StatelessWidget {
   final IconData icon;
 
   const CategoryListTile({
-    Key? key, required this.title, required this.icon,
+    Key? key,
+    required this.title,
+    required this.icon,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 10.sp),
+      padding: EdgeInsets.only(bottom: 5.sp),
       child: Container(
         color: HakimColors.greySurr,
         child: Padding(
@@ -89,7 +86,7 @@ class CategoryListTile extends StatelessWidget {
               width: 5.w,
             ),
             Text(
-              'الباطنية',
+              title,
               style: GoogleFonts.tajawal(
                   fontSize: 18.sp,
                   color: HakimColors.MainfontColor,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hakim/models/HomeCare.dart';
+import 'package:hakim/screens/HomeCareDes.dart';
 import 'package:hakim/screens/providers/HomeCareProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -52,11 +53,26 @@ class _HomeCaresState extends State<HomeCares> {
                     List<Widget> homeCareWidgets = [];
 
                     for (int i = 0; i < homeCares!.length; i++) {
-                      homeCareWidgets.add(HomeCareCard(
-                          name: homeCares![i].name!,
-                          image: 'http://192.168.43.250:9000/uploads/photos/'+homeCares![i].assets![0],
-                          location: homeCares![i].location!,
-                          description: homeCares![i].description!));
+                      homeCareWidgets.add(
+                        InkWell(
+                        onTap: () {
+
+ Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeCareDes(
+                                        homeCare: homeCares![i],
+                                      )));
+
+
+
+                        },
+                        child: HomeCareCard(
+                            name: homeCares![i].name!,
+                            image: 'http://192.168.43.250:9000/uploads/photos/'+homeCares![i].assets![0],
+                            location: homeCares![i].location!,
+                            description: homeCares![i].description!),
+                      ));
                     }
 
                     return Column(

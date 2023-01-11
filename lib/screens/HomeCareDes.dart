@@ -1,35 +1,33 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:hakim/models/Hospital.dart';
+import 'package:hakim/models/HomeCare.dart';
 import 'package:hakim/screens/widget/phoneTileWidget.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sizer/sizer.dart';
 
-class HospitalDes extends StatefulWidget {
-  const HospitalDes({super.key, required this.hospital});
+class HomeCareDes extends StatefulWidget {
+  const HomeCareDes({super.key, required this.homeCare});
+    final HomeCare homeCare;
 
-  final Hospital hospital;
 
   @override
-  State<HospitalDes> createState() => _HospitalDesState();
+  State <HomeCareDes> createState() =>  HomeCareDesState();
 }
 
-class _HospitalDesState extends State<HospitalDes> {
-  List<Widget>? hosImages;
-  List<Widget>? hosNumbers;
+class  HomeCareDesState extends State <HomeCareDes> {
 
+    List<Widget>? homeCaImages;
+  List<Widget>? homeCaNumbers;
+ 
   @override
   Widget build(BuildContext context) {
-    print([widget.hospital.phone]);
-    hosImages = widget.hospital.assets!
+    homeCaImages = widget.homeCare.assets!
         .map((e) =>
             Image.network('http://192.168.43.250:9000/uploads/photos/' + e))
         .toList();
-    hosNumbers =
-        widget.hospital.phone!.map((e) => PhoneTile(phone: e)).toList();
+    homeCaNumbers =
+        widget.homeCare.phone!.map((e) => PhoneTile(phone: e)).toList();
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -55,7 +53,7 @@ class _HospitalDesState extends State<HospitalDes> {
 
                 /// The widgets to display in the [ImageSlideshow].
                 /// Add the sample image file into the images folder
-                children: hosImages!,
+                children: homeCaImages!,
 
                 /// Called whenever the page in the center of the viewport changes.
                 onPageChanged: (value) {
@@ -75,7 +73,7 @@ class _HospitalDesState extends State<HospitalDes> {
             ),
             AppHorzintalpadding(
               widget: HakimMainText(
-                name: widget.hospital.name!,
+                name: widget.homeCare.name!,
               ),
               hzPading: 5.w,
             ),
@@ -83,7 +81,7 @@ class _HospitalDesState extends State<HospitalDes> {
               height: 20.sp,
             ),
             AppHorzintalpadding(
-                widget: Text(widget.hospital.description!,
+                widget: Text(widget.homeCare.description!,
                     style: TextStyle(
                         color: Colors.black.withOpacity(.60),
                         fontSize: 10.sp,
@@ -98,7 +96,7 @@ class _HospitalDesState extends State<HospitalDes> {
               height: 20.sp,
             ),
             Column(
-              children: hosNumbers!,
+              children: homeCaNumbers!,
             ),
             SizedBox(
               height: 30.sp,
@@ -127,7 +125,7 @@ class _HospitalDesState extends State<HospitalDes> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 7.5.sp),
-                    child: Text(widget.hospital.location!,
+                    child: Text(widget.homeCare.location!,
                         style: TextStyle(
                             color: Colors.black.withOpacity(.60),
                             fontSize: 9.sp,

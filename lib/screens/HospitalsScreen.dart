@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hakim/screens/HospitalDesScreen.dart';
 import 'package:hakim/screens/providers/hospitalProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -57,11 +58,23 @@ class _HospitalsState extends State<Hospitals> {
                     List<Widget> hospitalWidgets = [];
 
                     for (int i = 0; i < hospitals!.length; i++) {
-                      hospitalWidgets.add(HospitalCard(
-                          name: hospitals![i].name!,
-                          image: 'http://192.168.43.250:9000/uploads/photos/'+hospitals![i].assets![0],
-                          location: hospitals![i].location!,
-                          description: hospitals![i].description!));
+                      hospitalWidgets.add(InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HospitalDes(
+                                        hospital: hospitals![i],
+                                      )));
+                        },
+                        child: HospitalCard(
+                            name: hospitals![i].name!,
+                            image:
+                                'http://192.168.43.250:9000/uploads/photos/' +
+                                    hospitals![i].assets![0],
+                            location: hospitals![i].location!,
+                            description: hospitals![i].description!),
+                      ));
                     }
 
                     return Column(
@@ -117,8 +130,7 @@ class HospitalCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                                                height: 5.h,
-
+                        height: 5.h,
                         child: Text(
                           name,
                           style: TextStyle(
@@ -130,9 +142,9 @@ class HospitalCard extends StatelessWidget {
                       SizedBox(
                         height: 10.sp,
                       ),
-                      Container(height: 10.h,
+                      Container(
+                        height: 10.h,
                         child: Text(
-                          
                           description,
                           overflow: TextOverflow.fade,
                           style: TextStyle(
