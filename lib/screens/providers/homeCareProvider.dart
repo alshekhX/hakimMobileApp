@@ -3,19 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:hakim/models/Doctor.dart';
 import 'package:hakim/models/HomeCare.dart';
 
+import '../../consts/networkConst.dart';
+
 class HomeCareProvider with ChangeNotifier {
   List<HomeCare>? homeCares;
+  final options = NetworkConst().options;
 
-  // ignore: unnecessary_new
-  BaseOptions options = new BaseOptions(
-    baseUrl: "http://192.168.43.250:9000",
-    connectTimeout: 30000,
-    receiveTimeout: 30000,
-    contentType: 'application/json',
-    validateStatus: (status) {
-      return status! < 600;
-    },
-  );
 
   getHomeCare(int i) async {
     // try {

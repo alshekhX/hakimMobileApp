@@ -1,18 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hakim/consts/networkConst.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../consts/HakimColors.dart';
+import '../../models/Doctor.dart';
 
 class DoctorCard extends StatelessWidget {
-  final String name;
-  final String image;
+ final Doctor doctor;
   final IconData icon;
-  final String rank;
-  final String category;
 
   const DoctorCard({
-    Key? key, required this.name, required this.image, required this.icon, required this.rank, required this.category,
+    Key? key,required this.icon,  required this.doctor,
   }) : super(key: key);
 
   @override
@@ -39,7 +38,7 @@ class DoctorCard extends StatelessWidget {
                         width: 20.w,
                         child: CircleAvatar(
                           backgroundImage: NetworkImage(
-                             'http://192.168.43.250:9000/uploads/photos/'+image),
+                           NetworkConst().photoUrl+doctor.photo!),
                         ),
                       ),
                     ),
@@ -57,7 +56,7 @@ class DoctorCard extends StatelessWidget {
                             height: 10.sp,
                           ),
                           Text(
-                            name,
+                            doctor.firstName! + doctor.lastName!,
                             style: TextStyle(
                                 fontSize: 14.sp,
                                 color: Color(0xff707070),
@@ -67,7 +66,7 @@ class DoctorCard extends StatelessWidget {
                             height: 5.sp,
                           ),
                           Text(
-                           rank,
+                          doctor.rank!,
                             style: TextStyle(
                                 fontSize: 10.sp, color: Color(0xff8E8B8B)),
                           ),
@@ -75,12 +74,13 @@ class DoctorCard extends StatelessWidget {
                             height: 5.sp,
                           ),
                           Text(
-                            category,
+                            doctor.category!,
                             style: TextStyle(
                                 fontSize: 10.sp, color: Color(0xff8E8B8B)),
                           )
                         ]),
                   ),
+               
                   Container(
                     width: 10.w,
                     height: 14.h,

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hakim/consts/HakimColors.dart';
-import 'package:hakim/customeIcons.dart/icons.dart';
 import 'package:hakim/screens/DoctorScreen.dart';
 import 'package:hakim/screens/selectionClass/DocCategoryClass.dart';
+import 'package:hakim/screens/widget/apppBar.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -20,7 +18,7 @@ class _CatergoryScreenState extends State<CatergoryScreen> {
   List<Widget>? category;
   @override
   Widget build(BuildContext context) {
-    category = DocCategory.carEngineList
+    category = DocCategory.medicalProduct
         .map(
           (e) => InkWell(
               onTap: () {
@@ -33,20 +31,7 @@ class _CatergoryScreenState extends State<CatergoryScreen> {
     
 
     return Scaffold(
-      appBar: AppBar(
-          centerTitle: true,
-          toolbarHeight: 50.sp,
-          backgroundColor: HakimColors.hakimPrimaryColor,
-          title: Image.asset('assets/appBar.png')
-
-          //  Text(
-          //   'الحكيم',
-          //   style: GoogleFonts.tajawal(
-          //       fontSize: 32.sp,
-          //       color: Colors.white,
-          //       fontWeight: FontWeight.bold),
-          // ),
-          ),
+      appBar: ReusableWidgets.getAppBar('أقسام الأطباء', false, context),
       body: SingleChildScrollView(child: Padding(
         padding:  EdgeInsets.only(top: 10.sp),
         child: Column(children: category!),
@@ -75,7 +60,7 @@ class CategoryListTile extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 15.sp),
           child: Row(children: [
             SizedBox(
-              width: 5.w,
+              width: 8.w,
             ),
             Icon(
               icon,
@@ -88,7 +73,7 @@ class CategoryListTile extends StatelessWidget {
             Text(
               title,
               style: GoogleFonts.tajawal(
-                  fontSize: 18.sp,
+                  fontSize: 16.sp,
                   color: HakimColors.MainfontColor,
                   fontWeight: FontWeight.w500),
             )

@@ -4,19 +4,11 @@ import 'package:hakim/models/Doctor.dart';
 import 'package:hakim/models/HomeCare.dart';
 import 'package:hakim/models/Hospital.dart';
 
+import '../../consts/networkConst.dart';
+
 class HospitalProvider with ChangeNotifier {
   List<Hospital>? hospitals;
-
-  // ignore: unnecessary_new
-  BaseOptions options = new BaseOptions(
-    baseUrl: "http://192.168.43.250:9000",
-    connectTimeout: 30000,
-    receiveTimeout: 30000,
-    contentType: 'application/json',
-    validateStatus: (status) {
-      return status! < 600;
-    },
-  );
+  final options = NetworkConst().options;
 
   getHospitals(int i) async {
     // try {

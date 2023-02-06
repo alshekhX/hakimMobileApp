@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hakim/customeIcons.dart/icons.dart';
 import 'package:hakim/models/Doctor.dart';
 import 'package:hakim/screens/providers/doctorsProvider.dart';
+import 'package:hakim/screens/selectionClass/DocCategoryClass.dart';
+import 'package:hakim/screens/widget/hakimLoadingIndicator.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -30,11 +32,12 @@ class _DoctorsState extends State<Doctors> {
 
     String res =
         await Provider.of<DoctorsProvider>(context, listen: false).getDoctor(1);
-              print(res);
+    print(res);
 
     if (res == 'success') {
       // ignore: use_build_context_synchronously
       doctors = Provider.of<DoctorsProvider>(context, listen: false).doctors;
+      print(doctors);
       setState(() {});
     } else {
       print(res);
@@ -57,22 +60,27 @@ class _DoctorsState extends State<Doctors> {
           //       fontWeight: FontWeight.bold),
           // ),
           ),
-      body:  doctors!=null?  Column(children: [
-        SizedBox(height: 15.sp),
-         Consumer(   builder: (context, doctorseProv, _) {
+      body: doctors != null
+          ? Column(children: [
+              SizedBox(height: 15.sp),
+              Consumer(builder: (context, doctorseProv, _) {
+                List<Widget> doctorsWidgets = [];
 
+                for (int i = 0; i < doctors!.length; i++) {
+                  doctorsWidgets.add(DoctorCard(
+                    
+                      icon:   DocCategory.medicalProduct.where((element) => element .category== doctors![i].category).toList()[0].categoryIcon,
+                     doctor: doctors![i],));
+                }
 
-
-                    List<Widget> doctorsWidgets = [];
-
-                    for (int i = 0; i < doctors!.length; i++) {
-                      doctorsWidgets.add(DoctorCard(name: doctors![i].firstName! + ' ' +doctors![i].lastName!, image: doctors![i].photo!, icon: Icons.access_time_rounded, rank: doctors![i].rank!, category: doctors![i].category!));
-                    }
-
-                    return Column(
-                      children: doctorsWidgets,
-                    );
-                  })]):Container(child: Center(child: CircularProgressIndicator()),),
+                return Column(
+                  children: doctorsWidgets,
+                );
+              })
+            ])
+          : Container(
+              child:HaLoadingIndicator()
+            ),
     );
   }
 }

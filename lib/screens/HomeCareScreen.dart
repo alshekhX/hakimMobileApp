@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hakim/models/HomeCare.dart';
 import 'package:hakim/screens/HomeCareDes.dart';
 import 'package:hakim/screens/providers/HomeCareProvider.dart';
+import 'package:hakim/screens/widget/hakimLoadingIndicator.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -80,7 +81,7 @@ class _HomeCaresState extends State<HomeCares> {
                     );
                   })],
         ),
-      ):Center(child: CircularProgressIndicator(),),
+      ):HaLoadingIndicator(),
     );
   }
 }

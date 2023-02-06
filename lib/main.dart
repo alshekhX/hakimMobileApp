@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
         
         
         theme: ThemeData(
+
           
           // This is the theme of your application.
           //
@@ -62,9 +63,10 @@ class MyApp extends StatelessWidget {
           primaryColor: Color(0xffFCFCFC),
           backgroundColor:Color(0xffFCFCFC),
           
+          
           textTheme: GoogleFonts.tajawalTextTheme(),
          
-          canvasColor: Colors.white,scaffoldBackgroundColor: Colors.white
+         scaffoldBackgroundColor: Color(0xffF5F5F5)
         ),
         home:  MyHomePage(),
       );

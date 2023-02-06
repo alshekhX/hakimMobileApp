@@ -7,7 +7,7 @@ class DocCategory {
 
   DocCategory(this.category, this.categoryIcon);
 
- static List<DocCategory> carEngineList = [
+ static List<DocCategory> medicalProduct = [
     DocCategory("الجهاز الهضمي", MyFlutterApp.stomach_care_1607886),
     DocCategory("العظام والمفاصل",MyFlutterApp.joint_care_1607902),
     DocCategory("الكبد", MyFlutterApp.medical_sign_1607900),

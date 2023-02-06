@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hakim/screens/HospitalDesScreen.dart';
 import 'package:hakim/screens/providers/hospitalProvider.dart';
+import 'package:hakim/screens/widget/hakimLoadingIndicator.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -84,9 +85,7 @@ class _HospitalsState extends State<Hospitals> {
                 ],
               ),
             )
-          : Center(
-              child: CircularProgressIndicator(),
-            ),
+          : HaLoadingIndicator(),
     );
   }
 }
@@ -107,105 +106,111 @@ class HospitalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(5.w, 0, 5.w, 15.sp),
-      child: Column(
-        children: [
-          Row(
+      padding:  EdgeInsets.only(bottom: 10.sp),
+      child: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(5.w, 15.sp, 5.w, 10.sp),
+          child: Column(
             children: [
-              Container(
-                height: 20.6.h,
-                width: 34.w,
-                child: Image.network(
-                  image,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SizedBox(
-                width: 5.w,
-              ),
-              Container(
-                width: 50.w,
-                height: 20.6.h,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 5.h,
-                        child: Text(
-                          name,
-                          style: TextStyle(
-                              fontSize: 14.sp,
-                              color: Color(0xff707070),
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10.sp,
-                      ),
-                      Container(
-                        height: 10.h,
-                        child: Text(
-                          description,
-                          overflow: TextOverflow.fade,
-                          style: TextStyle(
-                              fontSize: 10.sp, color: Color(0xff8E8B8B)),
-                        ),
-                      ),
-                      Spacer(),
-                      Row(
+              Row(
+                children: [
+                  Container(
+                    height: 20.6.h,
+                    width: 34.w,
+                    child: Image.network(
+                      image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Container(
+                    width: 50.w,
+                    height: 20.6.h,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Align(
-                              alignment: Alignment.topCenter,
-                              child: Icon(
-                                Icons.pin_drop,
-                                size: 15.sp,
-                                color: HakimColors.hakimPrimaryColor,
-                              )),
-                          SizedBox(
-                            width: 5.sp,
-                          ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
+                          Container(
+                            height: 5.h,
                             child: Text(
-                              location,
+                              name,
                               style: TextStyle(
-                                  fontSize: 12.sp, color: Color(0xff8E8B8B)),
+                                  fontSize: 14.sp,
+                                  color: Color(0xff707070),
+                                  fontWeight: FontWeight.w700),
                             ),
                           ),
-                        ],
-                      )
-                    ]),
+                          SizedBox(
+                            height: 10.sp,
+                          ),
+                          Container(
+                            height: 10.h,
+                            child: Text(
+                              description,
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(
+                                  fontSize: 10.sp, color: Color(0xff8E8B8B)),
+                            ),
+                          ),
+                          Spacer(),
+                          Row(
+                            children: [
+                              Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Icon(
+                                    Icons.pin_drop,
+                                    size: 15.sp,
+                                    color: HakimColors.hakimPrimaryColor,
+                                  )),
+                              SizedBox(
+                                width: 5.sp,
+                              ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Text(
+                                  location,
+                                  style: TextStyle(
+                                      fontSize: 12.sp, color: Color(0xff8E8B8B)),
+                                ),
+                              ),
+                            ],
+                          )
+                        ]),
+                  ),
+                ],
               ),
+              SizedBox(
+                height: 2.5.h,
+              ),
+              Row(
+                children: [
+                  Spacer(),
+                  Container(
+                      height: 4.h,
+                      width: 50.w,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text(
+                          "تواصل",
+                          style: TextStyle(fontSize: 11.sp),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: HakimColors.doctorButton,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            )),
+                      )),
+                ],
+              ),
+              SizedBox(
+                height: 2.5.h,
+              )
             ],
           ),
-          SizedBox(
-            height: 2.5.h,
-          ),
-          Row(
-            children: [
-              Spacer(),
-              Container(
-                  height: 4.h,
-                  width: 50.w,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      "تواصل",
-                      style: TextStyle(fontSize: 11.sp),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: HakimColors.doctorButton,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        )),
-                  )),
-            ],
-          ),
-          SizedBox(
-            height: 2.5.h,
-          )
-        ],
+        ),
       ),
     );
   }

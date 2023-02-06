@@ -38,7 +38,7 @@ class HakimMainCard extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(17),
-          border: Border.all(color: HakimColors.hakimPrimaryColor)),
+          border: Border.all(color: HakimColors.hakimPrimaryColor,width: 2)),
     );
   }
 }
