@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hakim/consts/HakimColors.dart';
-import 'package:hakim/screens/DoctorScreen.dart';
+import 'package:hakim/screens/doctorsScreens/DoctorScreen.dart';
 import 'package:hakim/screens/selectionClass/DocCategoryClass.dart';
 import 'package:hakim/screens/widget/apppBar.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +23,7 @@ class _CatergoryScreenState extends State<CatergoryScreen> {
           (e) => InkWell(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Doctors()));
+                    MaterialPageRoute(builder: (context) => Doctors(category:e.category)));
               },
               child: CategoryListTile(title: e.category, icon: e.categoryIcon)),
         )

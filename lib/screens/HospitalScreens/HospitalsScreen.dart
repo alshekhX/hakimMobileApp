@@ -1,12 +1,17 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:hakim/screens/HospitalDesScreen.dart';
+import 'package:hakim/screens/HospitalScreens/HospitalDesScreen.dart';
 import 'package:hakim/screens/providers/hospitalProvider.dart';
 import 'package:hakim/screens/widget/hakimLoadingIndicator.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sizer/sizer.dart';
 
-import '../consts/HakimColors.dart';
-import '../models/Hospital.dart';
+import '../../consts/HakimColors.dart';
+import '../../consts/networkConst.dart';
+import '../../models/Hospital.dart';
 
 class Hospitals extends StatefulWidget {
   const Hospitals({super.key});
@@ -23,14 +28,17 @@ class _HospitalsState extends State<Hospitals> {
     super.initState();
   }
 
+  int pageNumber = 1;
+
   List<Hospital>? hospitals;
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
   getHospitals() async {
     // String cate = Provider.of<ArticlePrvider>(context, listen: false).category;
 
     String res = await Provider.of<HospitalProvider>(context, listen: false)
         .getHospitals(1);
-    print(res);
 
     if (res == 'success') {
       // ignore: use_build_context_synchronously
@@ -50,43 +58,71 @@ class _HospitalsState extends State<Hospitals> {
           backgroundColor: HakimColors.hakimPrimaryColor,
           title: const Text('المستشفيات')),
       body: hospitals != null
-          ? SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: 15.sp),
-                  Consumer<HospitalProvider>(
-                      builder: (context, hospitalProv, _) {
-                    List<Widget> hospitalWidgets = [];
+          ? SmartRefresher(
+              onLoading: _onLoading,
+              enablePullUp: true,
+              enablePullDown: false,
+              controller: _refreshController,
+              footer: ClassicFooter(
+                loadingIcon: LoadingAnimationWidget.discreteCircle(
+                    color: HakimColors.hakimPrimaryColor, size: 20.sp),
+                canLoadingText: '',
+                loadingText: "جاري التحميل",
+                noDataText: 'لا توجد بيانات',
+                idleText: 'إسحب لأعلى',
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: 15.sp),
+                    Consumer<HospitalProvider>(
+                        builder: (context, hospitalProv, _) {
+                      List<Widget> hospitalWidgets = [];
 
-                    for (int i = 0; i < hospitals!.length; i++) {
-                      hospitalWidgets.add(InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HospitalDes(
-                                        hospital: hospitals![i],
-                                      )));
-                        },
-                        child: HospitalCard(
-                            name: hospitals![i].name!,
-                            image:
-                                'http://192.168.43.250:9000/uploads/photos/' +
-                                    hospitals![i].assets![0],
-                            location: hospitals![i].location!,
-                            description: hospitals![i].description!),
-                      ));
-                    }
+                      for (int i = 0; i < hospitals!.length; i++) {
+                        hospitalWidgets.add(InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HospitalDes(
+                                          hospital: hospitals![i],
+                                        )));
+                          },
+                          child: HospitalCard(
+                              name: hospitals![i].name!,
+                              distnce: 0,
+                              image: NetworkConst().photoUrl +
+                                  hospitals![i].assets![0],
+                              location: hospitals![i].location!,
+                              description: hospitals![i].description!),
+                        ));
+                      }
 
-                    return Column(
-                      children: hospitalWidgets,
-                    );
-                  })
-                ],
+                      return Column(
+                        children: hospitalWidgets,
+                      );
+                    })
+                  ],
+                ),
               ),
             )
           : HaLoadingIndicator(),
     );
+  }
+
+  void _onLoading() async {
+    pageNumber++;
+    // monitor network fetch
+    await Provider.of<HospitalProvider>(context, listen: false)
+        .getHospitals(pageNumber);
+    hospitals!.addAll(
+        Provider.of<HospitalProvider>(context, listen: false).hospitals!);
+    setState(() {});
+
+    // // if failed,use loadFailed(),if no data return,use LoadNodata()
+    // if (mounted) setState(() {});
+    // _refreshController.loadComplete();
   }
 }
 
@@ -95,18 +131,20 @@ class HospitalCard extends StatelessWidget {
   final String image;
   final String location;
   final String description;
+  final double distnce;
   const HospitalCard({
     Key? key,
     required this.name,
     required this.image,
     required this.location,
     required this.description,
+    required this.distnce,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(bottom: 10.sp),
+      padding: EdgeInsets.only(bottom: 10.sp),
       child: Container(
         color: Colors.white,
         child: Padding(
@@ -134,7 +172,7 @@ class HospitalCard extends StatelessWidget {
                         children: [
                           Container(
                             height: 5.h,
-                            child: Text(
+                            child: AutoSizeText(
                               name,
                               style: TextStyle(
                                   fontSize: 14.sp,
@@ -160,8 +198,8 @@ class HospitalCard extends StatelessWidget {
                               Align(
                                   alignment: Alignment.topCenter,
                                   child: Icon(
-                                    Icons.pin_drop,
-                                    size: 15.sp,
+                                    Ionicons.location_outline,
+                                    size: 12.sp,
                                     color: HakimColors.hakimPrimaryColor,
                                   )),
                               SizedBox(
@@ -169,10 +207,17 @@ class HospitalCard extends StatelessWidget {
                               ),
                               Align(
                                 alignment: Alignment.bottomCenter,
-                                child: Text(
-                                  location,
-                                  style: TextStyle(
-                                      fontSize: 12.sp, color: Color(0xff8E8B8B)),
+                                child: SizedBox(
+                                  width: 42.w,
+                                  child: AutoSizeText(
+                                    location,
+                                    maxLines: 1,
+                                    minFontSize: 2,
+                                    style: TextStyle(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xff8E8B8B)),
+                                  ),
                                 ),
                               ),
                             ],
@@ -186,6 +231,15 @@ class HospitalCard extends StatelessWidget {
               ),
               Row(
                 children: [
+                  distnce == 0
+                      ? Container()
+                      : Text(
+                          'تبعد عنك ${distnce.toString().substring(0,4)} كيلومتر',
+                          style: TextStyle(
+                              color: HakimColors.hakimPrimaryColor,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700),
+                        ),
                   Spacer(),
                   Container(
                       height: 4.h,

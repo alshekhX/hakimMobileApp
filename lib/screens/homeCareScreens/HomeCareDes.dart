@@ -1,10 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:hakim/consts/HakimColors.dart';
 import 'package:hakim/models/HomeCare.dart';
 import 'package:hakim/screens/widget/phoneTileWidget.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../consts/networkConst.dart';
 
 class HomeCareDes extends StatefulWidget {
   const HomeCareDes({super.key, required this.homeCare});
@@ -24,10 +27,11 @@ class  HomeCareDesState extends State <HomeCareDes> {
   Widget build(BuildContext context) {
     homeCaImages = widget.homeCare.assets!
         .map((e) =>
-            Image.network('http://192.168.43.250:9000/uploads/photos/' + e))
+            Image.network( NetworkConst().photoUrl  + e,              fit: BoxFit.cover,
+))
         .toList();
     homeCaNumbers =
-        widget.homeCare.phone!.map((e) => PhoneTile(phone: e)).toList();
+        widget.homeCare.phone!.map((e) => PhoneTile(phone: e,color: HakimColors.hakimPrimaryColor,)).toList();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -47,7 +51,7 @@ class  HomeCareDesState extends State <HomeCareDes> {
                   initialPage: 0,
       
                   /// The color to paint the indicator.
-                  indicatorColor: Colors.blue,
+                  indicatorColor: HakimColors.MainfontColor,
       
                   /// The color to paint behind th indicator.
                   indicatorBackgroundColor: Colors.grey,
@@ -72,29 +76,52 @@ class  HomeCareDesState extends State <HomeCareDes> {
               SizedBox(
                 height: 10.sp,
               ),
-              AppHorzintalpadding(
-                widget: HakimMainText(
-                  name: widget.homeCare.name!,
+              SizedBox(
+                
+                child: AppHorzintalpadding(
+                  widget: HakimMainText(
+                    name: widget.homeCare.name!,
+                  ),
+                  hzPading: 7.w,
                 ),
-                hzPading: 5.w,
               ),
               SizedBox(
-                height: 20.sp,
+                height: 10.sp,
               ),
-              AppHorzintalpadding(
-                  widget: Text(widget.homeCare.description!,
-                      style: TextStyle(
-                          color: Colors.black.withOpacity(.60),
-                          fontSize: 10.sp,
-                          fontWeight: FontWeight.w600)),
-                  hzPading: 5.w),
+                   Container(
+                    width: 100.w,
+                decoration: BoxDecoration(                color: Colors.white,
+                boxShadow: [
+
+
+                  BoxShadow(
+    color: Colors.grey.shade300,
+    spreadRadius: 0,
+    blurStyle: BlurStyle.outer,
+    blurRadius: 0,
+    offset: const Offset(-1, 1),
+  )
+                ]
+),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.sp),
+                  child: AppHorzintalpadding(
+                      widget: Text(widget.homeCare.description!,
+                          style: TextStyle(
+                              color: Colors.black.withOpacity(.60),
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.w600)),
+                      hzPading: 7.w),
+                ),
+              ),
+       
               SizedBox(
                 height: 30.sp,
               ),
               AppHorzintalpadding(
-                  widget: HakimMainText(name: 'تواصل'), hzPading: 5.w),
+                  widget: HakimMainText(name: 'تواصل'), hzPading: 7.w),
               SizedBox(
-                height: 20.sp,
+                height: 10.sp,
               ),
               Column(
                 children: homeCaNumbers!,
@@ -103,22 +130,43 @@ class  HomeCareDesState extends State <HomeCareDes> {
                 height: 30.sp,
               ),
               AppHorzintalpadding(
-                  widget: HakimMainText(name: 'الموقع'), hzPading: 5.w),
+                  widget: HakimMainText(name: 'الموقع'), hzPading: 7.w),
               SizedBox(
                 height: 20.sp,
               ),
-              AppHorzintalpadding(
-                  widget: Card(
-                      elevation: 5,
-                      child: Image.network(
-                          'https://static1.xdaimages.com/wordpress/wp-content/uploads/2019/06/google-maps-india.jpg')),
-                  hzPading: 10.w),
-              AppHorzintalpadding(
-                widget: Row(
+             Container(
+  decoration: BoxDecoration(                color: Colors.white,
+                boxShadow: [
+
+
+                  BoxShadow(
+    color: Colors.grey.shade300,
+    spreadRadius: 0,
+    blurStyle: BlurStyle.outer,
+    blurRadius: 0,
+    offset: const Offset(-1, 1),
+  )
+                ]
+),                
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.sp),
+                  child: AppHorzintalpadding(
+                      widget: Column(
+                        children: [
+                          Card(
+                              elevation: 5,
+                              child: Container(
+                                
+                                
+                                  width: 90.w,
+                                  height: 30.h,
+                                  child:Image.network(
+                          'https://static1.xdaimages.com/wordpress/wp-content/uploads/2019/06/google-maps-india.jpg'))),
+                                  Row(
                   children: [
                     Icon(
                       Ionicons.location_outline,
-                      color: Colors.black.withOpacity(.60),
+                      color: HakimColors.hakimPrimaryColor,
                       size: 15.sp,
                     ),
                     SizedBox(
@@ -129,14 +177,17 @@ class  HomeCareDesState extends State <HomeCareDes> {
                       child: Text(widget.homeCare.location!,
                           style: TextStyle(
                               color: Colors.black.withOpacity(.60),
-                              fontSize: 9.sp,
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.w600)),
                     )
                   ],
                 ),
-                hzPading: 10.w,
+                        ],
+                      ),
+                      hzPading: 10.w),
+                ),
               ),
-              SizedBox(
+               SizedBox(
                 height: 20.sp,
               )
             ],

@@ -41,6 +41,9 @@ dependencies:
   sizer: ^2.0.15
   google_fonts: ^3.0.1
   easy_search_bar: ^2.4.2
+  ndialog: ^4.1.0
+  video_player: ^2.5.1
+
   intl: any
   dependencies:
   dio: ^4.0.6
@@ -48,6 +51,11 @@ dependencies:
   flutter_image_slideshow: ^0.1.4
   provider: ^6.0.5
   loading_animation_widget: ^1.2.0+2
+  google_maps_flutter: ^2.2.3
+  lottie: ^2.2.0
+  pull_to_refresh: ^2.0.0
+  auto_size_text: ^3.0.0
+
 
   
 

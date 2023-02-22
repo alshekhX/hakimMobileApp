@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hakim/consts/networkConst.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../consts/HakimColors.dart';
-import '../../models/Doctor.dart';
+import '../../../consts/HakimColors.dart';
+import '../../../models/Doctor.dart';
 
 class DoctorCard extends StatelessWidget {
  final Doctor doctor;

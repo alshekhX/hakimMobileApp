@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hakim/screens/CategoryScreen.dart';
-import 'package:hakim/screens/HospitalDesScreen.dart';
+import 'package:hakim/screens/aboutus.dart';
+import 'package:hakim/screens/doctorsScreens/CategoryScreen.dart';
+import 'package:hakim/screens/HospitalScreens/HospitalDesScreen.dart';
 import 'package:hakim/screens/homePage.dart';
 import 'package:hakim/screens/providers/HomeCareProvider.dart';
+import 'package:hakim/screens/providers/adsProvider.dart';
 import 'package:hakim/screens/providers/doctorsProvider.dart';
 import 'package:hakim/screens/providers/hospitalProvider.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +21,8 @@ void main() {
     ChangeNotifierProvider(create: (context) => DoctorsProvider()),
     ChangeNotifierProvider(create: (context) => HomeCareProvider()),
     ChangeNotifierProvider(create: (context) => HospitalProvider()),
+        ChangeNotifierProvider(create: (context) => AdsProvider()),
+
     // ChangeNotifierProvider(
     //   create: (context) => AuthProvider(),
     // ),

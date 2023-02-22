@@ -21,7 +21,6 @@ class HomeCareProvider with ChangeNotifier {
 
       homeCares = map.map((i) => HomeCare.fromJson(i)).toList().cast<HomeCare>();
 
-      print(homeCares![0].name);
       notifyListeners();
       return 'success';
     } else {

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:hakim/customeIcons.dart/icons.dart';
 import 'package:hakim/models/Doctor.dart';
+import 'package:hakim/screens/doctorsScreens/DoctorDesScreen.dart';
 import 'package:hakim/screens/providers/doctorsProvider.dart';
 import 'package:hakim/screens/selectionClass/DocCategoryClass.dart';
 import 'package:hakim/screens/widget/hakimLoadingIndicator.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-import '../consts/HakimColors.dart';
+import '../../consts/HakimColors.dart';
 import 'doctorsWidget/DoctorCard.dart';
 
 class Doctors extends StatefulWidget {
-  const Doctors({super.key});
+  const Doctors({super.key, required this.category});
+
+  final String category;
 
   @override
   State<Doctors> createState() => _DoctorsState();
@@ -30,8 +33,8 @@ class _DoctorsState extends State<Doctors> {
   getDoctor() async {
     // String cate = Provider.of<ArticlePrvider>(context, listen: false).category;
 
-    String res =
-        await Provider.of<DoctorsProvider>(context, listen: false).getDoctor(1);
+    String res = await Provider.of<DoctorsProvider>(context, listen: false)
+        .getCatDoctors(1, widget.category);
     print(res);
 
     if (res == 'success') {
@@ -67,10 +70,24 @@ class _DoctorsState extends State<Doctors> {
                 List<Widget> doctorsWidgets = [];
 
                 for (int i = 0; i < doctors!.length; i++) {
-                  doctorsWidgets.add(DoctorCard(
-                    
-                      icon:   DocCategory.medicalProduct.where((element) => element .category== doctors![i].category).toList()[0].categoryIcon,
-                     doctor: doctors![i],));
+                  doctorsWidgets.add(InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DoctorDescription(
+                                    doctor: doctors![i],
+                                  )));
+                    },
+                    child: DoctorCard(
+                      icon: DocCategory.medicalProduct
+                          .where((element) =>
+                              element.category == doctors![i].category)
+                          .toList()[0]
+                          .categoryIcon,
+                      doctor: doctors![i],
+                    ),
+                  ));
                 }
 
                 return Column(
@@ -78,9 +95,7 @@ class _DoctorsState extends State<Doctors> {
                 );
               })
             ])
-          : Container(
-              child:HaLoadingIndicator()
-            ),
+          : Container(child: HaLoadingIndicator()),
     );
   }
 }

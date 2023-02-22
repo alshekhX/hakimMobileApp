@@ -5,12 +5,12 @@ import 'package:hakim/screens/homeCareScreens/HomeCareDes.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sizer/sizer.dart';
 
-class hospitalHomeCard extends StatelessWidget {
+class HomeCareHome extends StatelessWidget {
   final String image;
     final String name;
   final String location;
 
-  const hospitalHomeCard({
+  const HomeCareHome({
     Key? key,required this.image, required this.name, required this.location
   }) : super(key: key);
 
